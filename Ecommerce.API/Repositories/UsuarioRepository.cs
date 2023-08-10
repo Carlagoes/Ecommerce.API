@@ -59,7 +59,9 @@ namespace Ecommerce.API.Repositories
             try
             {
                 SqlCommand command = new SqlCommand();
-                command.CommandText = $"SELECT * FROM Usuarios WHERE Id = @Id";
+                command.CommandText = $"SELECT * FROM Usuarios u " +
+                    $"LEFT JOIN Contatos c " +
+                    $"ON c.UsuarioId = u.Id WHERE u.Id = @Id";
                 command.Parameters.AddWithValue("@Id", id);
                 command.Connection = (SqlConnection)_connection;
 
