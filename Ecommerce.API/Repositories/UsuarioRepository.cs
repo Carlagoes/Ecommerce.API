@@ -71,7 +71,7 @@ namespace Ecommerce.API.Repositories
                 while (dataReader.Read())
                 {
                     Usuario usuario = new Usuario();
-                    usuario.Id = dataReader.GetInt32("Id");
+                    usuario.Id = dataReader.GetInt32(0);
                     usuario.Nome = dataReader.GetString("Nome");
                     usuario.Email = dataReader.GetString("Email");
                     usuario.Sexo = dataReader.GetString("Sexo");
@@ -81,8 +81,15 @@ namespace Ecommerce.API.Repositories
                     usuario.SituacaoCadastro = dataReader.GetString("SituacaoCadastro");
                     usuario.DataCadastro = dataReader.GetDateTimeOffset(8);
 
-                    return usuario;
+                    Contato contato = new Contato();
+                    contato.Id = dataReader.GetInt32(9);
+                    contato.UsuarioId = usuario.Id;
+                    contato.Telefone = dataReader.GetString("Telefone");
+                    contato.Celular = dataReader.GetString("Celular");
 
+                    usuario.Contato = contato;
+
+                    return usuario;
                 }
 
             }
